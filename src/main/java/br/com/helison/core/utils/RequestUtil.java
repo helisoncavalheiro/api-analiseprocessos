@@ -1,4 +1,4 @@
-package br.com.helison.utils;
+package br.com.helison.core.utils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -34,7 +34,7 @@ public class RequestUtil {
         try {
             this.uri = new URI(uri);
         } catch (URISyntaxException e) {
-
+            
         }
     }
 

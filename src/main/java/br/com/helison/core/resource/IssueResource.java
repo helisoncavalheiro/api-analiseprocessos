@@ -9,11 +9,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import br.com.helison.utils.RequestUtil;
+import br.com.helison.core.utils.RequestUtil;
+import br.com.helison.core.utils.Constantes;
 
 @Path("/issue")
 public class IssueResource {
-
+    
     private RequestUtil request;
 
 
@@ -21,14 +22,16 @@ public class IssueResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getIssue(@PathParam String id){
-        request = new RequestUtil("2a6ef493169d87a7ef7a2cffd08d7e15657f88f9" ,"X-Redmine-API-Key");
+        request = new RequestUtil(Constantes.TOKEN, 
+        Constantes.PAREMETRO_API_TOKEN);
         String response;
         try{
-            response = request.get("https://demandas.urcamp.edu.br/issues.json?issue_id=" + id);
-        }catch(IOException ioE){
-            response = "Não foi possível obter um resultado";
-        }catch(InterruptedException e){
-            response = "Não foi possível obter um resultado";
+            System.out.println();
+            response = request.get(Constantes.URL_ISSUE + id 
+            + Constantes.TYPE + Constantes.ACTIONS);
+        }catch(IOException|InterruptedException ioE){
+            response = "Não foi possível obter um resultado, erro: " 
+            + ioE.getMessage();
         }
         return response;
     }
