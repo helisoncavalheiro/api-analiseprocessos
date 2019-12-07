@@ -8,6 +8,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class RequestUtil {
 
     private HttpClient httpClient;
@@ -18,12 +21,8 @@ public class RequestUtil {
 
     public RequestUtil() {
         this.httpClient = HttpClient.newHttpClient();
-    }
-
-    public RequestUtil(String apiToken, String tokenProperty) {
-        this.httpClient = HttpClient.newHttpClient();
-        this.apiToken = apiToken;
-        this.tokenProperty = tokenProperty;
+        this.tokenProperty = Constantes.PAREMETRO_API_TOKEN;
+        this.apiToken = Constantes.TOKEN;
     }
 
     public int getStatusCode() {

@@ -2,6 +2,7 @@ package br.com.helison.core.resource;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -15,6 +16,7 @@ import br.com.helison.core.utils.Constantes;
 @Path("/issue")
 public class IssueResource {
     
+    @Inject
     private RequestUtil request;
 
 
@@ -22,8 +24,6 @@ public class IssueResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getIssue(@PathParam String id){
-        request = new RequestUtil(Constantes.TOKEN, 
-        Constantes.PAREMETRO_API_TOKEN);
         String response;
         try{
             System.out.println();
