@@ -2,11 +2,13 @@ package br.com.helison.core.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "trackers")
 @Getter
 @Setter
 public class Tracker extends BaseEntity{
@@ -19,13 +21,13 @@ public class Tracker extends BaseEntity{
     @Column
     private String name;
     
-    @Column
+    @Column(name = "is_in_chlog")
     private Boolean isInChLog;
 
     @Column
     private Integer position;
 
-    @Column
+    @Column(name = "is_in_roadmap")
     private Boolean isInRoadmap;
 
 }

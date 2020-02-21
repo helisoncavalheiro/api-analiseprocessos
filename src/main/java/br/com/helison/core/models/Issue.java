@@ -4,11 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "issues", schema = "public")
 @Getter
 @Setter
 public class Issue extends BaseEntity{
@@ -19,78 +23,77 @@ public class Issue extends BaseEntity{
     private static final long serialVersionUID = 1L;
     
     //Tracker id (FK) - Tipo de tarefa
-    /* TODO:  Transform to FK*/
-    @Column
-    private Integer trackerId;
-
+    @ManyToOne
+    @JoinColumn(name = "tracker_id")
+    private Tracker trackerId;
 
     /* TODO: Transform to FK */
-    @Column
-    private Integer projectId;
+    /*@Column(name = "project_id")
+    private Integer projectId;*/
 
     //Assunto da tarefa
-    @Column
+    @Column(name = "subject")
     private String subject;
 
     //Descrição da tarefa
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
+    @Column(name = "due_date")
     private Date dueDate;
 
     // TODO: Transform to FK
-    @Column
-    private Integer categoryId;
+    /*@Column(name = "category_id")
+    private Integer categoryId;*/
 
-    @Column
+    @Column(name = "status_id")
     private Integer statusId;
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer assignedToId;
+    /*@Column(name = "assigned_to_id")
+    private Integer assignedToId;*/
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer priorityId;
+    /*@Column(name = "priority_id")
+    private Integer priorityId;*/
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer fixedVersionId;
+    /*@Column(name = "fixed_version_id")
+    private Integer fixedVersionId;*/
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer authorId;
+    /*@Column(name = "author_id")
+    private Integer authorId;*/
 
-    @Column
+    @Column(name = "lock_version")
     private Integer lockVersion;
 
-    @Column
+    @Column(name = "created_on")
     private Date createdOn;
 
-    @Column
+    @Column(name = "updated_on")
     private Date updatedOn;
 
-    @Column
+    @Column(name = "start_date")
     private Date startDate;
 
-    @Column
+    @Column(name = "done_ratio")
     private Integer doneRatio;
 
-    @Column
+    @Column(name = "estimated_hours")
     private Long estimatedHours;
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer parentId;
+    /*@Column(name = "parent_id")
+    private Integer parentId;*/
 
     /* TODO: Transform to FK*/
-    @Column
-    private Integer rootId;
+    /*@Column(name = "root_id")
+    private Integer rootId;*/
 
-    @Column
+    @Column(name = "lft")
     private Integer lft;
 
-    @Column
+    @Column(name = "rgt")
     private Integer rgt;
 }

@@ -1,12 +1,13 @@
 package br.com.helison.core.models;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Setter;
 
 @MappedSuperclass
-public abstract class BaseEntity implements BaseModel<Integer> {
+public abstract class BaseEntity implements BaseModel<Long> {
 
     /**
      *
@@ -15,11 +16,11 @@ public abstract class BaseEntity implements BaseModel<Integer> {
 
     @Id
     @Setter
-    private Integer pk;
+    @Column(name = "id")
+    private Long id;
 
     @Override
-    public Integer getPk(){
-        return pk;
+    public Long getId(){
+        return id;
     }
-
 }
