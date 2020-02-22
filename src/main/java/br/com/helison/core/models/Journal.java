@@ -1,14 +1,15 @@
 package br.com.helison.core.models;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "journals")
 @Getter
 @Setter
 public class Journal extends BaseEntity{
@@ -18,19 +19,22 @@ public class Journal extends BaseEntity{
      */
     private static final long serialVersionUID = 1L;
 
-    @Column
+    @Column(name = "journalized_id")
     private Integer journalizedId;
 
-    @Column
+    @Column(name = "journalized_type")
     private String journalizedType;
 
+    
     /* TODO: Transform to FK*/
+    /*
     @Column
     private Integer userId;
+    */
 
     @Column
     private String notes;
 
-    @Column
+    @Column(name = "created_on")
     private Date createdOn;
 }

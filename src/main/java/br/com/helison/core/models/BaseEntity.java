@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Setter;
 
 @MappedSuperclass
-public abstract class BaseEntity implements BaseModel<Long> {
+public abstract class BaseEntity extends PanacheEntity implements BaseModel<Long> {
 
     /**
      *
