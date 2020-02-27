@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -46,8 +47,9 @@ public class Issue extends BaseEntity{
     /*@Column(name = "category_id")
     private Integer categoryId;*/
 
-    @Column(name = "status_id")
-    private Integer statusId;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status statusId;
 
     /* TODO: Transform to FK*/
     /*@Column(name = "assigned_to_id")
