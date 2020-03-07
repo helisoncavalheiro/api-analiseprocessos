@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,12 +16,7 @@ import lombok.Setter;
 @Table(name = "issues", schema = "public")
 @Getter
 @Setter
-public class Issue extends BaseEntity{
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Issue extends PanacheEntity {
     
     //Tracker id (FK) - Tipo de tarefa
     @ManyToOne

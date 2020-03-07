@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +13,7 @@ import lombok.Setter;
 @Table(name = "issue_statuses")
 @Getter
 @Setter
-public class Status extends BaseEntity{
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Status extends PanacheEntity {
 
     @Column
     private String name;

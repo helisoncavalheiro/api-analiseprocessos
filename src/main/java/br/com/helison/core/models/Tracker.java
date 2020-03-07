@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +12,7 @@ import lombok.Setter;
 @Table(name = "trackers")
 @Getter
 @Setter
-public class Tracker extends BaseEntity{
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Tracker extends PanacheEntity {
 
     @Column
     private String name;

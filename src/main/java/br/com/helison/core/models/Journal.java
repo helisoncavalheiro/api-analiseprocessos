@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +13,7 @@ import lombok.Setter;
 @Table(name = "journals")
 @Getter
 @Setter
-public class Journal extends BaseEntity{
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class Journal extends PanacheEntity {
 
     @Column(name = "journalized_id")
     private Integer journalizedId;

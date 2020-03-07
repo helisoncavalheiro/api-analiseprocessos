@@ -3,18 +3,14 @@ package br.com.helison.core.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class User extends BaseEntity {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class User extends PanacheEntity {
 
     @Column
     private String login;
