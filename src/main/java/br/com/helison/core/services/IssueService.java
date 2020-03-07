@@ -2,7 +2,10 @@ package br.com.helison.core.services;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -38,20 +41,16 @@ public class IssueService implements PanacheRepository<Issue> {
     public List<Issue> getUserInteractions(String userID) throws SQLException {
         List<Issue> issues = new ArrayList<>();
         List<Long> journalizedIssues;
-        journalizedIssues = em.createNativeQuery("SELECT i.id FROM issues i, journals j WHERE i.id = j.journalized_id AND j.journalized_type = 'Issue' AND notes LIKE '@" + userID + "%';").getResultList();
-        
+        journalizedIssues = em.createNativeQuery(
+            "SELECT DISTINCT i.id FROM issues i " +
+                "INNER JOIN journals j " +
+                "ON i.id = j.journalized_id " +
+                "AND j.journalized_type = 'Issue' " + 
+                "AND notes LIKE '@" + userID + "%';"
+                ).getResultList();        
         for(int i = 0;i<journalizedIssues.size();i++){
             issues.add(find("id = " + journalizedIssues.get(i)).firstResult());
         } 
         return issues;
-
-        /* FIXME: Otimizar esse JOIN */
-        /*
-        issues = find(
-            "SELECT i FROM Issue i, Journal " + 
-                "WHERE Issue.id = Journal.journalizedId " +
-                    "AND Journal.journalizedType = 'Issue' " +
-                    "AND notes LIKE '@" + userID + "%'").list();*/
-        
     }
 }
