@@ -2,17 +2,11 @@ package br.com.helison.core.services;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import br.com.helison.core.models.Issue;
-import br.com.helison.core.models.User;
-import br.com.helison.core.resource.UserResource;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
