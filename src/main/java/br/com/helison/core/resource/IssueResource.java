@@ -1,5 +1,6 @@
 package br.com.helison.core.resource;
 
+import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,9 +22,14 @@ public class IssueResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Issue getIssue(@PathParam String id){
-        Issue issue;
-        issue = issueService.getIssue(Long.parseLong(id));
+        Issue issue = issueService.getIssue(Long.parseLong(id));
         return issue;
     }
 
+    @GET
+    @Path("/author/{user}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Issue> getIssuesByAuthor(@PathParam String user){
+        return Issue.getIssuesByAuthor(user);
+    }
 }
