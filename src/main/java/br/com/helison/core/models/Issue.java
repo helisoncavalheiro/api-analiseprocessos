@@ -1,5 +1,6 @@
 package br.com.helison.core.models;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -112,6 +113,23 @@ public class Issue extends PanacheEntity {
 
         for (Long id : issuesIds) {
             issues.add(findById(id));
+        }
+
+        return issues;
+    }
+
+    public static List<Issue> getUserInteractions(String userID) throws SQLException {
+        List<Issue> issues = new ArrayList<Issue>();
+        
+        List<Issue> userCreations = Issue.getIssuesByAuthor(userID);
+        List<Journal> journalizedIssues = Journal.list("journalizedType = 'Issue' AND notes like '@" + userID + "'");
+        
+        for(Journal journal : journalizedIssues) {
+            issues.add(findById(journal.getJournalizedId()));
+        }
+
+        for(Issue issue : userCreations){
+            issues.add(issue);
         }
 
         return issues;
