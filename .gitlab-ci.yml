@@ -11,16 +11,26 @@ build:
   stage: build
   image: docker:stable
   script:
-    - touch .env
-    - echo "DB_DRIVER=org.postgresql.Driver" >> .env
-    - echo "DB_SERVER=postgresql" >> .env
-    - echo "DB_HOST=$PROD_DB_HOST" >> .env
-    - echo "DB_NAME=$PROD_DB_NAME" >> .env
-    - echo "DB_USERNAME=$PROD_DB_USERNAME" >> .env
-    - echo "DB_PASSWORD=$PROD_DB_PASSWORD" >> .env
-    - echo "FRONT_HOST=http://aproc.urcamp.edu.br" >> .env
+    - cd resources
+    - rm application.properties
+    - touch application.properties
+    - echo "quarkus.datasource.driver=org.postgresql.Driver" >> application.properties
+    - echo "quarkus.datasource.url=jdbc:postgresql://$PROD_DB_HOST/$PROD_DB_NAME" >> application.properties
+    - echo "quarkus.datasource.username=$PROD_DB_USERNAME" >> application.properties
+    - echo "quarkus.datasource.password=$PROD_DB_PASSWORD" >> application.properties
+    - echo "quarkus.http.cors=true" >> application.properties
+    - echo "quarkus.http.cors.origins=http://aproc.urcamp.edu.br" >> application.properties
+    - echo "" >> application.properties
+    - echo "#Development configurations" >> application.properties
+    - echo "%dev.quarkus.hibernate-orm.log.sql=true" >> application.properties
+    - echo "" >> application.properties
+    - echo "#Production configurations" >> application.properties
+    - echo "%prod.quarkus.hibernate-orm.log.sql=false" >> application.properties
+    - echo "" >> application.properties
+    - echo "quarkus.hibernate-orm.database.generation=none" >> application.properties
+    - echo "quarkus.swagger-ui.always-include=true" >> application.properties
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker build --build-arg DB_DRIVER=org.postgresql.Driver --build-arg DB_SERVER=postgresql --build-arg DB_HOST=$PROD_DB_HOST --build-arg DB_NAME=$PROD_DB_NAME --build-arg DB_USERNAME=$PROD_DB_USERNAME --build-arg DB_PASSWORD=$PROD_DB_PASSWORD --build-arg FRONT_HOST=http://aproc.urcamp.edu.br --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile .
+    - docker build --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile .
     - docker push $LATEST_IMAGE
   only:
     - master
