@@ -13,7 +13,7 @@ build:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - |
-      docker build --pull -t -f ./src/main/docker/Dockerfile $LATEST_IMAGE . \
+      docker build --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile . \
       --build-arg DB_DRIVER="org.postgresql.Driver" \
       --build-arg DB_SERVER="postgresql" \
       --build-arg DB_HOST="$PROD_DB_HOST" \
