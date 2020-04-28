@@ -11,7 +11,7 @@ build:
   stage: build
   image: docker:stable
   script:
-    - cd resources
+    - cd src/main/resources
     - rm application.properties
     - touch application.properties
     - echo "quarkus.datasource.driver=org.postgresql.Driver" >> application.properties
