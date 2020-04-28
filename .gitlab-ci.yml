@@ -1,0 +1,34 @@
+image: ubuntu:16.04
+
+variables:
+  LATEST_IMAGE: $CI_REGISTRY/$CI_PROJECT_PATH:latest
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:stable
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - |
+      docker build --pull -t -f ./src/main/docker/Dockerfile $LATEST_IMAGE . \
+      --build-arg DB_DRIVER="org.postgresql.Driver" \
+      --build-arg DB_SERVER="postgresql" \
+      --build-arg DB_HOST="$PROD_DB_HOST" \
+      --build-arg DB_NAME="$PROD_DB_NAME" \
+      --build-arg DB_USERNAME="$PROD_DB_USERNAME" \
+      --build-arg DB_PASSWORD="$PROD_DB_PASSWORD" \
+      --build-arg FRONT_HOST="http://aproc.urcamp.edu.br"
+    - docker push $LATEST_IMAGE
+  only:
+    - master
+
+#deploy:
+#  stage: deploy
+#  image: cdrx/rancher-gitlab-deploy
+#  script:
+#    - upgrade --stack $RANCHER_STACK --service $RANCHER_SERVICE --new-image $LATEST_IMAGE --start-before-stopping
+#  only:
+#    - master
