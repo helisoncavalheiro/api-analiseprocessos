@@ -11,24 +11,24 @@ build:
   stage: build
   image: docker:stable
   script:
+    - touch .env
+    - echo "DB_DRIVER=org.postgresql.Driver" >> .env
+    - echo "DB_SERVER=postgresql" >> .env
+    - echo "DB_HOST=$PROD_DB_HOST" >> .env
+    - echo "DB_NAME=$PROD_DB_NAME" >> .env
+    - echo "DB_USERNAME=$PROD_DB_USERNAME" >> .env
+    - echo "DB_PASSWORD=$PROD_DB_PASSWORD" >> .env
+    - echo "FRONT_HOST=http://aproc.urcamp.edu.br" >> .env
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - |
-      docker build --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile . \
-      --build-arg DB_DRIVER="org.postgresql.Driver" \
-      --build-arg DB_SERVER="postgresql" \
-      --build-arg DB_HOST="$PROD_DB_HOST" \
-      --build-arg DB_NAME="$PROD_DB_NAME" \
-      --build-arg DB_USERNAME="$PROD_DB_USERNAME" \
-      --build-arg DB_PASSWORD="$PROD_DB_PASSWORD" \
-      --build-arg FRONT_HOST="http://aproc.urcamp.edu.br"
+    - docker build --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile .
     - docker push $LATEST_IMAGE
   only:
     - master
 
-#deploy:
-#  stage: deploy
-#  image: cdrx/rancher-gitlab-deploy
-#  script:
-#    - upgrade --stack $RANCHER_STACK --service $RANCHER_SERVICE --new-image $LATEST_IMAGE --start-before-stopping
-#  only:
-#    - master
+deploy:
+  stage: deploy
+  image: cdrx/rancher-gitlab-deploy
+  script:
+    - upgrade --stack $RANCHER_STACK --service $RANCHER_SERVICE --new-image $LATEST_IMAGE --start-before-stopping
+  only:
+    - master
