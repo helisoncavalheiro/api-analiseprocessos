@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Journal extends PanacheEntity {
 
     @Column(name = "journalized_id")
-    private Integer journalizedId;
+    private Long journalizedId;
 
     @Column(name = "journalized_type")
     private String journalizedType;

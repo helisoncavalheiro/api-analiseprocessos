@@ -122,14 +122,19 @@ public class Issue extends PanacheEntity {
         List<Issue> issues = new ArrayList<Issue>();
         
         List<Issue> userCreations = Issue.getIssuesByAuthor(userID);
-        List<Journal> journalizedIssues = Journal.list("journalizedType = 'Issue' AND notes like '@" + userID + "'");
+        List<Journal> journalizedIssues = Journal.list("journalizedType = 'Issue' AND notes like '@" + userID + "%'");
         
         for(Journal journal : journalizedIssues) {
-            issues.add(findById(journal.getJournalizedId()));
+            Issue journalizedIssue = findById(journal.getJournalizedId());
+            if(!issues.contains(journalizedIssue)){
+                issues.add(journalizedIssue);
+            }
         }
 
         for(Issue issue : userCreations){
-            issues.add(issue);
+            if(!issues.contains(issue)){
+                issues.add(issue);
+            }
         }
 
         return issues;
