@@ -1,4 +1,4 @@
-package br.com.helison.core.models;
+package br.com.helison.core.models.competo;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.helison.core.models.redmine.Project;
+import br.com.helison.core.models.redmine.Role;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.Getter;
 import lombok.Setter;

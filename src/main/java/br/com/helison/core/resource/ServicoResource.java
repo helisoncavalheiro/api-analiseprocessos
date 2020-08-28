@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import br.com.helison.core.models.Servico;
+import br.com.helison.core.models.competo.Servico;
 
 @Path("/servico")
 public class ServicoResource {

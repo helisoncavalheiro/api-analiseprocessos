@@ -1,4 +1,4 @@
-package br.com.helison.core.models;
+package br.com.helison.core.models.redmine;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

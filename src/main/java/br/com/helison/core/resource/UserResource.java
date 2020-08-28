@@ -10,8 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import br.com.helison.core.models.Issue;
-import br.com.helison.core.models.User;
+import br.com.helison.core.models.redmine.Issue;
+import br.com.helison.core.models.redmine.User;
 
 @Path("/user")
 public class UserResource {

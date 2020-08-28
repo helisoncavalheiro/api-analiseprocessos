@@ -1,4 +1,4 @@
-package br.com.helison.core.models;
+package br.com.helison.core.models.redmine;
 
 import java.util.ArrayList;
 import java.util.List;

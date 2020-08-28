@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import br.com.helison.core.models.Issue;
+import br.com.helison.core.models.redmine.Issue;
 
 @Path("/issue")
 public class IssueResource {
