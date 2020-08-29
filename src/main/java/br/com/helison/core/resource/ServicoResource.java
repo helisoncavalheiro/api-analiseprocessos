@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+import br.com.helison.core.models.competo.Acao;
 import br.com.helison.core.models.competo.Servico;
 
 @Path("/servico")
@@ -26,5 +27,12 @@ public class ServicoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Servico getServicoById(@PathParam Integer id) {
         return Servico.findById(id);
+    }
+
+    @GET
+    @Path("/{id}/acoes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Acao> getAcoes(@PathParam Integer id){
+        return Acao.list("servico", id);
     }
 }

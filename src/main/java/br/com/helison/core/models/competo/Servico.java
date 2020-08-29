@@ -42,4 +42,5 @@ public class Servico extends PanacheEntityBase {
     @ManyToMany
     @JoinTable(name = "cs_observadores", joinColumns = {@JoinColumn(name="servico")}, inverseJoinColumns = {@JoinColumn(name = "permissao")})
     private List<Role> observadores;
+
 }
