@@ -22,6 +22,8 @@ public class User extends PanacheEntity {
     @Column(name = "hashed_password")
     private String hashedPassword;
 
+    private String salt;
+
     @Column
     private String firstname;
     
