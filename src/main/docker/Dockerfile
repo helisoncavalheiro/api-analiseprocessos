@@ -4,19 +4,11 @@ WORKDIR /api
 
 #Copia todo o código
 COPY . .
-
-#Define os argumentos
-
-#Driver do banco de dados. Ex.: org.postgresql.Driver
-#ARG DB_DRIVER
-#Banco de dados utilizado. Ex.: postgres
-#ARG DB_SERVER
-#ARG DB_HOST
-#ARG DB_NAME
-#ARG DB_USERNAME
-#ARG DB_PASSWORD
-#URL do front-end com
-#ARG FRONT_HOST
+RUN cd src/main/resources/META-INF/resources \ 
+    && openssl genrsa -out publicKey.pem \
+    && cd .. \
+    && openssl pkcs8 -topk8 -inform PEM -in src/main/resources/META-INF/resources/publicKey.pem -out privateKey.pem -nocrypt \
+    && openssl rsa -in src/main/resources/META-INF/resources/publicKey.pem -pubout -outform PEM -out src/main/resources/META-INF/resources/publicKey.pem
 
 #Roda o goal do Maven para empacotamento
 RUN mvn package

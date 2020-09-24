@@ -28,6 +28,13 @@ build:
     - echo "%prod.quarkus.hibernate-orm.log.sql=false" >> application.properties
     - echo "" >> application.properties
     - echo "quarkus.hibernate-orm.database.generation=none" >> application.properties
+    - echo "quarkus.smallrye-jwt.enabled=true" >> application.properties
+    - echo "mp.jwt.verify.publickey.location=META-INF/resources/publicKey.pem" >> application.properties
+    - echo "smallrye.jwt.new-token.issuer=http://api.aproc.urcamp.edu.br" >> application.properties
+    - echo "mp.jwt.verify.issuer=http://api.aproc.urcamp.edu.br" >> application.properties
+    - echo "smallrye.jwt.sign.key-location=META-INF/privateKey.pem" >> application.properties
+    - echo "smallrye.jwt.new-token.lifespan=7200" >> application.properties
+    - echo "smallrye.jwt.token.kid=META-INF/privateKey.pem" >> application.properties
     - cd ../../../
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker build --pull -t $LATEST_IMAGE -f ./src/main/docker/Dockerfile .
