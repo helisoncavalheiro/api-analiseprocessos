@@ -7,8 +7,8 @@ COPY . .
 RUN cd src/main/resources/META-INF/resources \ 
     && openssl genrsa -out publicKey.pem \
     && cd .. \
-    && openssl pkcs8 -topk8 -inform PEM -in src/main/resources/META-INF/resources/publicKey.pem -out privateKey.pem -nocrypt \
-    && openssl rsa -in src/main/resources/META-INF/resources/publicKey.pem -pubout -outform PEM -out src/main/resources/META-INF/resources/publicKey.pem
+    && openssl pkcs8 -topk8 -inform PEM -in resources/publicKey.pem -out privateKey.pem -nocrypt \
+    && openssl rsa -in resources/publicKey.pem -pubout -outform PEM -out resources/publicKey.pem
 
 #Roda o goal do Maven para empacotamento
 RUN mvn package
