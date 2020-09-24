@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -15,6 +16,7 @@ import br.com.helison.core.models.redmine.Issue;
 import br.com.helison.core.models.redmine.User;
 
 @Path("/user")
+@RolesAllowed("Admin")
 public class UserResource {
 
     @GET
