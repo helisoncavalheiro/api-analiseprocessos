@@ -37,3 +37,6 @@ release.properties
 
 #Environment
 .env
+
+#Keys
+*.pem
