@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -28,5 +29,14 @@ public class IssueResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Issue> getIssuesByAuthor(@PathParam String user){
         return Issue.getIssuesByAuthor(user);
+    }
+
+    @GET
+    @Path("/project/{projectId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Issue> getIssuesByProject(@PathParam String projectId){
+
+        List<Issue> openIssuesOnProject = Issue.getOpenIssuesByProject(Long.parseLong(projectId));
+        return openIssuesOnProject;
     }
 }
