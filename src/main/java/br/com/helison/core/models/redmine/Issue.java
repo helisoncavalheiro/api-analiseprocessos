@@ -26,10 +26,9 @@ public class Issue extends PanacheEntity {
     @JoinColumn(name = "tracker_id")
     private Tracker trackerId;
 
-    /* TODO: Transform to FK */
-    /*
-     * @Column(name = "project_id") private Integer projectId;
-     */
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     // Assunto da tarefa
     @Column(name = "subject")
@@ -42,20 +41,14 @@ public class Issue extends PanacheEntity {
     @Column(name = "due_date")
     private Date dueDate;
 
-    // TODO: Transform to FK
-    /*
-     * @Column(name = "category_id") private Integer categoryId;
-     */
-
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status statusId;
 
-    /* TODO: Transform to FK */
-    /*
-     * @Column(name = "assigned_to_id") private Integer assignedToId;
-     */
-
+    @ManyToOne
+    @JoinColumn(name = "assigned_to_id") 
+    private User assignedTo;
+    
     /* TODO: Transform to FK */
     /*
      * @Column(name = "priority_id") private Integer priorityId;
@@ -106,7 +99,7 @@ public class Issue extends PanacheEntity {
     private Integer rgt;
 
     public static List<Issue> getIssuesByAuthor(String user) {
-        
+
         List<Long> issuesIds = CustomValue.getIssuesByCustomField(Long.parseLong("2"), user);
 
         List<Issue> issues = new ArrayList<Issue>();
@@ -118,21 +111,26 @@ public class Issue extends PanacheEntity {
         return issues;
     }
 
+    public static List<Issue> getOpenIssuesByProject(Long projectId){
+        List<Issue> issues = list("project.id = ?1 or project.parentId = ?1 and statusId.isClosed = FALSE", projectId);
+        return issues;
+    }
+
     public static List<Issue> getUserInteractions(String userID) throws SQLException {
         List<Issue> issues = new ArrayList<Issue>();
-        
+
         List<Issue> userCreations = Issue.getIssuesByAuthor(userID);
         List<Journal> journalizedIssues = Journal.list("journalizedType = 'Issue' AND notes like '@" + userID + "%'");
-        
-        for(Journal journal : journalizedIssues) {
+
+        for (Journal journal : journalizedIssues) {
             Issue journalizedIssue = findById(journal.getJournalizedId());
-            if(!issues.contains(journalizedIssue)){
+            if (!issues.contains(journalizedIssue)) {
                 issues.add(journalizedIssue);
             }
         }
 
-        for(Issue issue : userCreations){
-            if(!issues.contains(issue)){
+        for (Issue issue : userCreations) {
+            if (!issues.contains(issue)) {
                 issues.add(issue);
             }
         }
